@@ -1,0 +1,12 @@
+//권한 부여
+
+sudo chmod 666 /dev/ttyUSB0
+sudo chmod 666 /dev/ttyS0
+
+
+// 시리얼 체크
+dmesg | grep tty
+// 포트 설정 확인
+stty -F /dev/ttyS0
+// 포트 속도 변경
+stty 115200 < /dev/ttyS0
