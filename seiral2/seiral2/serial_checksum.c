@@ -137,6 +137,13 @@ void *readserial_thread(void *pt)
 				{
 				    if(read_buf[cnt-7]=='I')
 				    {
+						for(int i=cnt-8; i<=cnt; i++)
+						{
+							printf("read byte %x",read_buf[i]);
+							printf("\n\n");
+						}
+
+
 						for(int i=cnt-7; i<cnt-2; i++)
 						{
 							crc_check.data += read_buf[i];
@@ -145,11 +152,16 @@ void *readserial_thread(void *pt)
 						if(crc_check.bytedata[0] == read_buf[cnt-1] && crc_check.bytedata[1] == read_buf[cnt-2])
 						{
 							printf("correct! %d %d\n\n", read_buf[cnt-1], read_buf[cnt-2]);
+							for(int i=cnt-6; i<cnt-2; i++)
+							{
+								printf("correct data %d\n\n",read_buf[i]);
+							}
 							crc_check.data = 0;
 						}
 						else
 						{
-							printf("wrong\n\n");
+							printf("wrong\n");
+							printf("LSB: %d MSB: %d\n\n", read_buf[cnt-1], read_buf[cnt-2]);
 							crc_check.data = 0;
 					    }
 					}
